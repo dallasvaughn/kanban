@@ -1,15 +1,31 @@
-import { motion } from 'framer-motion';
-import BoardIcon from '../icons/BoardIcon';
+import BoardIcon from './icons/BoardIcon';
 import ReactSwitch from 'react-switch';
-import iconLightTheme from '../../public/icon-light-theme.svg';
-import iconDarkTheme from '../../public/icon-dark-theme.svg';
-import { useState } from 'react';
+import hideSidebar from '../public/icon-hide-sidebar.svg';
+import iconLightTheme from '../public/icon-light-theme.svg';
+import iconDarkTheme from '../public/icon-dark-theme.svg';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-const MobileBoardMenu = () => {
-  const [checked, setChecked] = useState(
-    localStorage.theme === 'dark' ? true : false
-  );
+interface Props {
+  updateSidebar: () => void;
+}
+
+const Sidebar = ({ updateSidebar }: Props) => {
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.theme === 'dark') {
+      setChecked(true);
+    }
+  }, []);
 
   const handleChange = (): void => {
     setChecked(!checked);
@@ -23,30 +39,26 @@ const MobileBoardMenu = () => {
   };
 
   return (
-    <div className="fixed z-20 top-16 left-0 w-screen h-screen bg-black/50 flex justify-center">
-      <motion.div
-        initial={{ opacity: 0, transform: 'translateY(-30px)' }}
-        animate={{ transform: 'translateY(16px)', opacity: 1 }}
-        className="absolute w-[264px] bg-white dark:bg-dark-grey rounded-lg p-4 shadow-lg"
-      >
+    <aside className="bg-white dark:bg-dark-grey w-[260px] border-r border-lines-light dark:border-lines-dark h-full p-3 pb-20">
+      <div className="mt-4 flex flex-col h-full">
         <div className="text-medium-grey text-xs font-bold uppercase tracking-[2.4px] ml-2">
           All Boards
         </div>
-        <div className="-ml-4 mt-5">
-          <div className="bg-main-purple rounded-r-full p-3 pl-0">
+        <div className="-ml-4 mt-5 mb-auto">
+          <div className="bg-main-purple rounded-r-full p-4 pl-0">
             <div className="flex items-center ml-6 text-md font-bold text-medium-grey fill-medium-grey">
               <BoardIcon />
               <span className="flex items-center ml-3">Platform Launch</span>
             </div>
           </div>
-          <div className="rounded-r-full p-3 pl-0">
+          <div className="rounded-r-full p-4 pl-0">
             <div className="flex items-center ml-6 text-md font-bold text-main-purple fill-main-purple">
               <BoardIcon />
               <span className="flex items-center ml-3">+ Create New Board</span>
             </div>
           </div>
         </div>
-        <div className="mt-4 bg-light-grey dark:bg-very-dark-grey py-[15px] rounded flex gap-5 justify-center">
+        <div className="bg-light-grey dark:bg-very-dark-grey py-[15px] rounded flex gap-5 justify-center">
           <span className="flex items-center">
             <Image src={iconLightTheme} />
           </span>
@@ -67,9 +79,18 @@ const MobileBoardMenu = () => {
             <Image src={iconDarkTheme} />
           </span>
         </div>
-      </motion.div>
-    </div>
+        <div
+          className="flex items-center text-medium-grey font-bold text-md mt-[30px] ml-4"
+          onClick={updateSidebar}
+        >
+          <span className="flex items-center mr-[10px]">
+            <Image src={hideSidebar} />
+          </span>{' '}
+          Hide Sidebar
+        </div>
+      </div>
+    </aside>
   );
 };
 
-export default MobileBoardMenu;
+export default Sidebar;

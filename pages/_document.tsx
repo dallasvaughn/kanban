@@ -14,7 +14,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="flex flex-col mx-auto justify-between min-h-screen bg-light-grey">
+        <body className="flex flex-col mx-auto justify-between min-h-screen bg-light-grey dark:bg-very-dark-grey">
           <Main />
           <NextScript />
         </body>
