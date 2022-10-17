@@ -4,10 +4,13 @@ import Sidebar from '../components/Sidebar';
 import { motion } from 'framer-motion';
 import ShowSidebar from '../components/ShowSidebar';
 import useWindowDimensions from '../helpers/useWindowDimensions';
+import EmptyBoard from '../components/board/EmptyBoard';
+import Board from '../components/board/Board';
+import Column from '../components/board/Column';
 
 const Home: NextPage = () => {
   const [showSidebar, setShowSidebar] = useState(true);
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     if (localStorage.theme === 'dark') {
@@ -33,11 +36,11 @@ const Home: NextPage = () => {
         <Sidebar updateSidebar={updateSidebar} />
       </div>
       <motion.div
-        initial={{ width: 'calc(100% - 260px)' }}
+        initial={{ width: '100%' }}
         animate={{ width: !showSidebar ? '100%' : 'calc(100% - 260px)' }}
-        className="absolute right-0 h-full z-20 bg-light-grey dark:bg-very-dark-grey flex-1 flex justify-center items-center text-medium-grey text-lg font-bold"
+        className="absolute right-0 h-full z-20 bg-light-grey dark:bg-very-dark-grey flex-1 flex"
       >
-        This board is empty. Create a new column to get started.
+        <EmptyBoard />
       </motion.div>
       {!showSidebar && <ShowSidebar updateSidebar={updateSidebar} />}
     </main>

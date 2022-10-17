@@ -9,9 +9,11 @@ import PrimaryButton from './PrimaryButton';
 import MobileBoardMenu from './modals/MobileBoardMenu';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import useWindowDimensions from '../helpers/useWindowDimensions';
 
 const Header = () => {
   const [openBoardMenu, setOpenBoardMenu] = useState(false);
+  const { width } = useWindowDimensions();
   const variants = {
     open: { rotate: 180 },
     closed: { rotate: 0 },
@@ -41,12 +43,17 @@ const Header = () => {
           <Image src={chevronDown} />
         </motion.span>
       </h1>
-      <PrimaryButton opacity="0.25">
-        <span className="md:hidden w-12 text-xl flex items-center justify-center">
-          <Image className="rotate-45" src={add} />
-        </span>
-        <span className="hidden md:flex">+ Add New Task</span>
-      </PrimaryButton>
+      {width && width < 768 ? (
+        <button className="bg-main-purple h-8 rounded-2xl px-2">
+          <span className="w-8 text-xl flex items-center justify-center">
+            <Image className="rotate-45" src={add} />
+          </span>
+        </button>
+      ) : (
+        <PrimaryButton opacity="0.25">
+          <span className="hidden md:flex">+ Add New Task</span>
+        </PrimaryButton>
+      )}
       <Image src={edit} />
       {openBoardMenu ? <MobileBoardMenu /> : null}
     </header>

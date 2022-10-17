@@ -20,6 +20,9 @@ module.exports = {
       red: '#EA5555',
       'red-hover': '#FF9898',
     },
+    boxShadow: {
+      normal: '0px 4px 6px rgba(54, 78, 126, 0.101545);',
+    },
     fontSize: {
       xl: '24px',
       lg: '18px',

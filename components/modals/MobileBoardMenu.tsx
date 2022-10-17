@@ -27,7 +27,7 @@ const MobileBoardMenu = () => {
       <motion.div
         initial={{ opacity: 0, transform: 'translateY(-30px)' }}
         animate={{ transform: 'translateY(16px)', opacity: 1 }}
-        className="absolute w-[264px] bg-white dark:bg-dark-grey rounded-lg p-4 shadow-lg"
+        className="absolute w-[264px] bg-white dark:bg-dark-grey rounded-lg p-4"
       >
         <div className="text-medium-grey text-xs font-bold uppercase tracking-[2.4px] ml-2">
           All Boards
