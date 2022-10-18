@@ -11,7 +11,7 @@ const PrimaryButton = ({ children, opacity = '1' }: Props) => {
       style={{
         opacity: opacity,
       }}
-      className="px-4 h-12 text-white text-md bg-main-purple font-bold rounded-full flex justify-center items-center md:h-12 md:rounded-full md:px-6"
+      className="px-4 h-11 w-full text-white text-sm bg-main-purple font-semibold rounded-full flex justify-center items-center md:h-12 md:rounded-full md:px-6"
     >
       {children}
     </button>

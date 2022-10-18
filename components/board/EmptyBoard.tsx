@@ -6,7 +6,9 @@ const EmptyBoard = () => {
       <p className="max-w-[80%]">
         This board is empty. Create a new column to get started.
       </p>
-      <PrimaryButton>+ Add New Column</PrimaryButton>
+      <div>
+        <PrimaryButton>+ Add New Column</PrimaryButton>
+      </div>
     </div>
   );
 };

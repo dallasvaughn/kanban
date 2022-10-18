@@ -7,6 +7,7 @@ import useWindowDimensions from '../helpers/useWindowDimensions';
 import EmptyBoard from '../components/board/EmptyBoard';
 import Board from '../components/board/Board';
 import Column from '../components/board/Column';
+import AddBoard from '../components/modals/AddBoard';
 
 const Home: NextPage = () => {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -38,7 +39,7 @@ const Home: NextPage = () => {
       <motion.div
         initial={{ width: '100%' }}
         animate={{ width: !showSidebar ? '100%' : 'calc(100% - 260px)' }}
-        className="absolute right-0 h-full z-20 bg-light-grey dark:bg-very-dark-grey flex-1 flex"
+        className="absolute right-0 h-full bg-light-grey dark:bg-very-dark-grey flex-1 flex"
       >
         <EmptyBoard />
       </motion.div>

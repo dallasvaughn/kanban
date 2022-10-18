@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <header className="absolute z-50 bg-white dark:bg-dark-grey w-full top-0 h-16 p-4 flex gap-4 items-center md:h-20 md:py-0 md:px-6 md:border-b border-lines-light dark:border-lines-dark">
+    <header className="absolute bg-white dark:bg-dark-grey w-full top-0 h-16 p-4 flex gap-4 items-center md:h-20 md:py-0 md:px-6 md:border-b border-lines-light dark:border-lines-dark">
       <span className="flex items-center md:hidden">
         <Image src={logoMobile} />
       </span>
