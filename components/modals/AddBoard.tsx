@@ -1,16 +1,25 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ColumnValue from '../ColumnValue';
 import Input from '../Input';
 import Label from '../Label';
 import Modal from './Modal';
+import ModalContent from './ModalContent';
 import cross from '../../public/icon-cross.svg';
 import Image from 'next/image';
 import SecondaryButton from '../SecondaryButton';
 import PrimaryButton from '../PrimaryButton';
+import { BoardContext, Column } from '../../context/boardContext';
 
-const AddBoard = () => {
+type Props = {
+  onClick: () => void;
+};
+
+const AddBoard = ({ onClick }: Props) => {
   const [boardName, setBoardName] = useState('');
-  const [columns, setColumns] = useState([{}]);
+  const [columns, setColumns] = useState<Column[]>([]);
+  const [state, dispatch] = useContext(BoardContext);
+
+  console.log(state);
 
   const updateColumns = (name: string, i: number) => {
     const updatedList = columns.map((column, index) => {
@@ -26,11 +35,24 @@ const AddBoard = () => {
     setColumns([...columns, { name: '' }]);
   };
 
-  console.log(columns);
+  const removeColumn = (i: number) => {
+    if (columns.length === 1) return;
+    setColumns(columns.filter((item, index) => index !== i));
+  };
+
+  const createBoard = () => {
+    dispatch({
+      type: 'ADD BOARD',
+      payload: {
+        name: boardName,
+        columns: columns,
+      },
+    });
+  };
 
   return (
-    <Modal>
-      <div className="w-[90%] max-w-[343px] bg-white rounded-md p-6">
+    <Modal onClick={onClick}>
+      <ModalContent maxWidth="480px">
         <h2 className="text-lg font-bold text-black mb-6">Add New Board</h2>
         <div className="flex flex-col gap-2">
           <Label htmlFor="board-name">Board Name</Label>
@@ -49,8 +71,12 @@ const AddBoard = () => {
           {columns.map((column, i) => {
             return (
               <div key={i} className="flex items-center gap-4">
-                <ColumnValue updateColumns={updateColumns} i={i} />
-                <Image src={cross} />
+                <ColumnValue
+                  column={column}
+                  updateColumns={updateColumns}
+                  i={i}
+                />
+                <Image src={cross} onClick={() => removeColumn(i)} />
               </div>
             );
           })}
@@ -59,9 +85,9 @@ const AddBoard = () => {
           </SecondaryButton>
         </div>
         <div className="flex w-full">
-          <PrimaryButton>Create New Board</PrimaryButton>
+          <PrimaryButton onClick={createBoard}>Create New Board</PrimaryButton>
         </div>
-      </div>
+      </ModalContent>
     </Modal>
   );
 };

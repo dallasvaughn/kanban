@@ -50,9 +50,11 @@ const Header = () => {
           </span>
         </button>
       ) : (
-        <PrimaryButton opacity="0.25">
-          <span className="hidden md:flex">+ Add New Task</span>
-        </PrimaryButton>
+        <div>
+          <PrimaryButton opacity="0.25">
+            <span className="hidden md:flex">+ Add New Task</span>
+          </PrimaryButton>
+        </div>
       )}
       <Image src={edit} />
       {openBoardMenu ? <MobileBoardMenu /> : null}

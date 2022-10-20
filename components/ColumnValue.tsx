@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import Input from './Input';
+import { Column } from '../context/boardContext';
 
 interface Props {
+  column: Column;
   updateColumns: (name: string, i: number) => void;
   i: number;
 }
 
-const ColumnValue = ({ updateColumns, i }: Props) => {
-  const [columnName, setColumnName] = useState('');
+const ColumnValue = ({ column, updateColumns, i }: Props) => {
+  const [columnName, setColumnName] = useState(column.name);
 
   useEffect(() => {
     updateColumns(columnName, i);
@@ -16,7 +18,7 @@ const ColumnValue = ({ updateColumns, i }: Props) => {
   return (
     <Input
       name="column"
-      value={columnName}
+      value={column.name}
       onChange={(e) => {
         const input = e.target as HTMLInputElement;
         setColumnName(input.value);

@@ -5,6 +5,7 @@ import iconLightTheme from '../public/icon-light-theme.svg';
 import iconDarkTheme from '../public/icon-dark-theme.svg';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import AddBoard from './modals/AddBoard';
 
 interface Props {
   updateSidebar: () => void;
@@ -12,6 +13,7 @@ interface Props {
 
 const Sidebar = ({ updateSidebar }: Props) => {
   const [checked, setChecked] = useState(false);
+  const [addBoard, setAddBoard] = useState(false);
 
   useEffect(() => {
     if (localStorage.theme === 'dark') {
@@ -38,6 +40,10 @@ const Sidebar = ({ updateSidebar }: Props) => {
     }
   };
 
+  const handleClose = () => {
+    setAddBoard(false);
+  };
+
   return (
     <aside className="bg-white dark:bg-dark-grey w-[260px] border-r border-lines-light dark:border-lines-dark h-full p-3 pb-20">
       <div className="mt-4 flex flex-col h-full">
@@ -51,7 +57,10 @@ const Sidebar = ({ updateSidebar }: Props) => {
               <span className="flex items-center ml-3">Platform Launch</span>
             </div>
           </div>
-          <div className="rounded-r-full p-4 pl-0">
+          <div
+            className="rounded-r-full p-4 pl-0 cursor-pointer"
+            onClick={() => setAddBoard(true)}
+          >
             <div className="flex items-center ml-6 text-md font-bold text-main-purple fill-main-purple">
               <BoardIcon />
               <span className="flex items-center ml-3">+ Create New Board</span>
@@ -89,6 +98,8 @@ const Sidebar = ({ updateSidebar }: Props) => {
           Hide Sidebar
         </div>
       </div>
+
+      {addBoard ? <AddBoard onClick={handleClose} /> : null}
     </aside>
   );
 };
