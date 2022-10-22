@@ -3,15 +3,19 @@ import BoardIcon from '../icons/BoardIcon';
 import ReactSwitch from 'react-switch';
 import iconLightTheme from '../../public/icon-light-theme.svg';
 import iconDarkTheme from '../../public/icon-dark-theme.svg';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Image from 'next/image';
 import AddBoard from './AddBoard';
+import { BoardContext } from '../../context/boardContext';
+import BoardName from '../BoardName';
 
 const MobileBoardMenu = () => {
   const [checked, setChecked] = useState(
     localStorage.theme === 'dark' ? true : false
   );
   const [addBoard, setAddBoard] = useState(false);
+  const [state, dispatch] = useContext(BoardContext);
+  const { boards } = state;
 
   const handleChange = (): void => {
     setChecked(!checked);
@@ -40,12 +44,9 @@ const MobileBoardMenu = () => {
             All Boards
           </div>
           <div className="-ml-4 mt-5">
-            <div className="bg-main-purple rounded-r-full p-3 pl-0">
-              <div className="flex items-center ml-6 text-md font-bold text-medium-grey fill-medium-grey">
-                <BoardIcon />
-                <span className="flex items-center ml-3">Platform Launch</span>
-              </div>
-            </div>
+            {boards.map((board, i) => {
+              return <BoardName key={i} name={board.name} />;
+            })}
             <div className="rounded-r-full p-3 pl-0">
               <div className="flex items-center ml-6 text-md font-bold text-main-purple fill-main-purple">
                 <BoardIcon />

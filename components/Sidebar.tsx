@@ -3,9 +3,11 @@ import ReactSwitch from 'react-switch';
 import hideSidebar from '../public/icon-hide-sidebar.svg';
 import iconLightTheme from '../public/icon-light-theme.svg';
 import iconDarkTheme from '../public/icon-dark-theme.svg';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
 import AddBoard from './modals/AddBoard';
+import { BoardContext } from '../context/boardContext';
+import BoardName from './BoardName';
 
 interface Props {
   updateSidebar: () => void;
@@ -14,6 +16,8 @@ interface Props {
 const Sidebar = ({ updateSidebar }: Props) => {
   const [checked, setChecked] = useState(false);
   const [addBoard, setAddBoard] = useState(false);
+  const [state, dispatch] = useContext(BoardContext);
+  const { boards } = state;
 
   useEffect(() => {
     if (localStorage.theme === 'dark') {
@@ -51,12 +55,9 @@ const Sidebar = ({ updateSidebar }: Props) => {
           All Boards
         </div>
         <div className="-ml-4 mt-5 mb-auto">
-          <div className="bg-main-purple rounded-r-full p-4 pl-0">
-            <div className="flex items-center ml-6 text-md font-bold text-medium-grey fill-medium-grey">
-              <BoardIcon />
-              <span className="flex items-center ml-3">Platform Launch</span>
-            </div>
-          </div>
+          {boards.map((board, i) => {
+            return <BoardName key={i} name={board.name} />;
+          })}
           <div
             className="rounded-r-full p-4 pl-0 cursor-pointer"
             onClick={() => setAddBoard(true)}

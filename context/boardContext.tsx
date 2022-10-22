@@ -24,6 +24,7 @@ interface Board {
 
 export interface State {
   boards: Board[];
+  activeBoard: string;
 }
 
 export interface Action {
@@ -32,7 +33,8 @@ export interface Action {
 }
 
 const initialState = {
-  boards: [],
+  boards: [{ name: 'Test Board' }],
+  activeBoard: 'Test Board',
 };
 
 const initialDispatch = () => {

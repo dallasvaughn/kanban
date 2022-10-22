@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ColumnValue from '../ColumnValue';
 import Input from '../Input';
 import Label from '../Label';
@@ -16,10 +16,13 @@ type Props = {
 
 const AddBoard = ({ onClick }: Props) => {
   const [boardName, setBoardName] = useState('');
-  const [columns, setColumns] = useState<Column[]>([]);
-  const [state, dispatch] = useContext(BoardContext);
+  const [columns, setColumns] = useState<Column[]>([{ name: '' }]);
+  const [error, setError] = useState(false);
+  const [, dispatch] = useContext(BoardContext);
 
-  console.log(state);
+  useEffect(() => {
+    setError(false);
+  }, [boardName, columns]);
 
   const updateColumns = (name: string, i: number) => {
     const updatedList = columns.map((column, index) => {
@@ -41,6 +44,10 @@ const AddBoard = ({ onClick }: Props) => {
   };
 
   const createBoard = () => {
+    if (!boardName) return setError(true);
+    for (let column of columns) {
+      if (!column.name) return setError(true);
+    }
     dispatch({
       type: 'ADD BOARD',
       payload: {
@@ -48,6 +55,7 @@ const AddBoard = ({ onClick }: Props) => {
         columns: columns,
       },
     });
+    onClick();
   };
 
   return (
@@ -64,6 +72,7 @@ const AddBoard = ({ onClick }: Props) => {
               const input = e.target as HTMLInputElement;
               setBoardName(input.value);
             }}
+            required
           />
         </div>
         <div className="mt-6 flex flex-col gap-3 mb-6">
@@ -84,6 +93,11 @@ const AddBoard = ({ onClick }: Props) => {
             + Add New Column
           </SecondaryButton>
         </div>
+        {error && (
+          <p className="text-sm text-red text-center mb-2">
+            Make sure all required fields are filled out
+          </p>
+        )}
         <div className="flex w-full">
           <PrimaryButton onClick={createBoard}>Create New Board</PrimaryButton>
         </div>

@@ -23,6 +23,7 @@ const ColumnValue = ({ column, updateColumns, i }: Props) => {
         const input = e.target as HTMLInputElement;
         setColumnName(input.value);
       }}
+      required
     />
   );
 };
