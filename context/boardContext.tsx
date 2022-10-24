@@ -1,30 +1,31 @@
 import { createContext, Dispatch, ReactNode, useReducer } from 'react';
 import reducer from './boardReducer';
+import data from '../data/data.json';
 
 type Props = {
   children: ReactNode;
 };
 
-interface Task {
+export interface Task {
   title: string;
   description: string;
   status: string;
-  subtasks?: { title: string; isCompleted: boolean }[];
+  subtasks: { title: string; isCompleted: boolean }[];
 }
 
 export interface Column {
   name: string;
-  tasks?: Task[];
+  tasks: Task[];
 }
 
-interface Board {
+export interface Board {
   name: string;
-  columns?: Column[];
+  columns: Column[];
 }
 
 export interface State {
   boards: Board[];
-  activeBoard: string;
+  activeBoard: Board;
 }
 
 export interface Action {
@@ -33,8 +34,8 @@ export interface Action {
 }
 
 const initialState = {
-  boards: [{ name: 'Test Board' }],
-  activeBoard: 'Test Board',
+  boards: data.boards,
+  activeBoard: data.boards[0],
 };
 
 const initialDispatch = () => {

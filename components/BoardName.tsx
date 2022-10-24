@@ -1,30 +1,40 @@
 import { useContext } from 'react';
-import { BoardContext } from '../context/boardContext';
-import Board from './board/Board';
+import { Board, BoardContext } from '../context/boardContext';
 import BoardIcon from './icons/BoardIcon';
 
 type Props = {
-  name: string;
+  board: Board;
 };
 
-const BoardName = ({ name }: Props) => {
-  const [state] = useContext(BoardContext);
+const BoardName = ({ board }: Props) => {
+  const [state, dispatch] = useContext(BoardContext);
   const { activeBoard } = state;
+
+  const handleClick = () => {
+    dispatch({
+      type: 'CHANGE BOARD',
+      payload: board,
+    });
+  };
 
   return (
     <div
-      style={{ backgroundColor: name === activeBoard ? '#635FC7' : undefined }}
-      className=" rounded-r-full p-3 md:p-4 pl-0"
+      style={{
+        backgroundColor:
+          board && board.name === activeBoard.name ? '#635FC7' : undefined,
+      }}
+      className="rounded-r-full p-3 md:p-4 pl-0"
+      onClick={handleClick}
     >
       <div
         style={{
-          color: name === activeBoard ? 'white' : undefined,
-          fill: name === activeBoard ? 'white' : undefined,
+          color: board && board.name === activeBoard.name ? 'white' : undefined,
+          fill: board && board.name === activeBoard.name ? 'white' : undefined,
         }}
         className="flex items-center ml-6 md:ml-2 text-md font-bold text-medium-grey fill-medium-grey"
       >
         <BoardIcon />
-        <span className="flex items-center ml-3">{name}</span>
+        <span className="flex items-center ml-3">{board && board.name}</span>
       </div>
     </div>
   );

@@ -45,7 +45,7 @@ const MobileBoardMenu = () => {
           </div>
           <div className="-ml-4 mt-5">
             {boards.map((board, i) => {
-              return <BoardName key={i} name={board.name} />;
+              return <BoardName key={i} board={board} />;
             })}
             <div className="rounded-r-full p-3 pl-0">
               <div className="flex items-center ml-6 text-md font-bold text-main-purple fill-main-purple">

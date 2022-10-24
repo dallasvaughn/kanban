@@ -56,7 +56,7 @@ const Sidebar = ({ updateSidebar }: Props) => {
         </div>
         <div className="-ml-4 mt-5 mb-auto">
           {boards.map((board, i) => {
-            return <BoardName key={i} name={board.name} />;
+            return <BoardName key={i} board={board} />;
           })}
           <div
             className="rounded-r-full p-4 pl-0 cursor-pointer"

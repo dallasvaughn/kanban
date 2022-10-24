@@ -8,15 +8,16 @@ import cross from '../../public/icon-cross.svg';
 import Image from 'next/image';
 import SecondaryButton from '../SecondaryButton';
 import PrimaryButton from '../PrimaryButton';
-import { BoardContext, Column } from '../../context/boardContext';
+import { Board, BoardContext, Column } from '../../context/boardContext';
 
 type Props = {
+  board: Board;
   onClick: () => void;
 };
 
-const AddBoard = ({ onClick }: Props) => {
-  const [boardName, setBoardName] = useState('');
-  const [columns, setColumns] = useState<Column[]>([{ name: '', tasks: [] }]);
+const EditBoard = ({ board, onClick }: Props) => {
+  const [boardName, setBoardName] = useState(board.name);
+  const [columns, setColumns] = useState<Column[]>(board.columns);
   const [error, setError] = useState(false);
   const [, dispatch] = useContext(BoardContext);
 
@@ -43,13 +44,9 @@ const AddBoard = ({ onClick }: Props) => {
     setColumns(columns.filter((item, index) => index !== i));
   };
 
-  const createBoard = () => {
-    if (!boardName) return setError(true);
-    for (let column of columns) {
-      if (!column.name) return setError(true);
-    }
+  const saveChanges = () => {
     dispatch({
-      type: 'ADD BOARD',
+      type: 'EDIT BOARD',
       payload: {
         name: boardName,
         columns: columns,
@@ -61,7 +58,7 @@ const AddBoard = ({ onClick }: Props) => {
   return (
     <Modal onClick={onClick}>
       <ModalContent maxWidth="480px">
-        <h2 className="text-lg font-bold text-black mb-6">Add New Board</h2>
+        <h2 className="text-lg font-bold text-black mb-6">Edit Board</h2>
         <div className="flex flex-col gap-2">
           <Label htmlFor="board-name">Board Name</Label>
           <Input
@@ -99,11 +96,11 @@ const AddBoard = ({ onClick }: Props) => {
           </p>
         )}
         <div className="flex w-full">
-          <PrimaryButton onClick={createBoard}>Create New Board</PrimaryButton>
+          <PrimaryButton onClick={saveChanges}>Save Changes</PrimaryButton>
         </div>
       </ModalContent>
     </Modal>
   );
 };
 
-export default AddBoard;
+export default EditBoard;

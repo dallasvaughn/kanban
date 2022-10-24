@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { motion } from 'framer-motion';
 import ShowSidebar from '../components/ShowSidebar';
@@ -8,9 +8,12 @@ import EmptyBoard from '../components/board/EmptyBoard';
 import Board from '../components/board/Board';
 import Column from '../components/board/Column';
 import AddBoard from '../components/modals/AddBoard';
+import { BoardContext } from '../context/boardContext';
 
 const Home: NextPage = () => {
   const [showSidebar, setShowSidebar] = useState(true);
+  const [state, dispatch] = useContext(BoardContext);
+  const { boards, activeBoard } = state;
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -41,7 +44,15 @@ const Home: NextPage = () => {
         animate={{ width: !showSidebar ? '100%' : 'calc(100% - 260px)' }}
         className="absolute right-0 h-full bg-light-grey dark:bg-very-dark-grey flex-1 flex"
       >
-        <EmptyBoard />
+        {activeBoard && activeBoard.columns.length > 0 ? (
+          <Board>
+            {activeBoard.columns.map((column, i) => {
+              return <Column key={i} column={column} />;
+            })}
+          </Board>
+        ) : (
+          <EmptyBoard />
+        )}
       </motion.div>
       {!showSidebar && <ShowSidebar updateSidebar={updateSidebar} />}
     </main>
