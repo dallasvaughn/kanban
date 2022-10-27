@@ -57,8 +57,10 @@ const EditBoard = ({ board, onClick }: Props) => {
 
   return (
     <Modal onClick={onClick}>
-      <ModalContent maxWidth="480px">
-        <h2 className="text-lg font-bold text-black mb-6">Edit Board</h2>
+      <ModalContent>
+        <h2 className="text-lg font-bold text-black dark:text-white mb-6">
+          Edit Board
+        </h2>
         <div className="flex flex-col gap-2">
           <Label htmlFor="board-name">Board Name</Label>
           <Input

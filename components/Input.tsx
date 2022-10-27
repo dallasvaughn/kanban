@@ -31,7 +31,7 @@ const Input = ({ name, placeholder, value, onChange, required }: Props) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="w-full border border-lines-light text-black rounded-[4px] py-2 px-4 text-sm outline-none"
+        className="w-full border border-lines-light dark:border-lines-dark dark:bg-dark-grey text-black dark:text-white rounded-[4px] py-2 px-4 text-sm outline-none"
         onBlur={handleBlur}
       />
       {required && Object.keys(style).length > 0 && (

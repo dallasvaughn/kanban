@@ -13,7 +13,7 @@ const Column = ({ column }: Props) => {
       </div>
       <div className="flex flex-col gap-5 pb-6">
         {column.tasks?.map((task, i) => {
-          return <Card key={i} task={task} />;
+          return <Card key={i} column={column} task={task} i={i} />;
         })}
       </div>
     </div>

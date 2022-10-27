@@ -70,8 +70,10 @@ const AddTask = ({ board, onClick }: Props) => {
 
   return (
     <Modal onClick={onClick}>
-      <ModalContent maxWidth="480px">
-        <h2 className="text-lg font-bold text-black mb-6">Add New Task</h2>
+      <ModalContent>
+        <h2 className="text-lg font-bold text-black dark:text-white mb-6">
+          Add New Task
+        </h2>
         <div className="flex flex-col gap-2">
           <Label htmlFor="title">Title</Label>
           <Input
@@ -88,7 +90,7 @@ const AddTask = ({ board, onClick }: Props) => {
         <div className="flex flex-col gap-2 mt-6">
           <Label htmlFor="description">Description</Label>
           <textarea
-            className="w-full h-[112px] border border-lines-light text-black rounded-[4px] py-2 px-4 text-sm outline-none resize-none"
+            className="w-full h-[112px] border dark:bg-dark-grey border-lines-light dark:border-lines-dark text-black dark:text-white rounded-[4px] py-2 px-4 text-sm outline-none resize-none"
             name="description"
             placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
             value={description}
@@ -120,7 +122,7 @@ const AddTask = ({ board, onClick }: Props) => {
           <Label htmlFor="status">Status</Label>
           <select
             value={status}
-            className="w-full border border-lines-light text-black rounded-[4px] py-2 px-2 text-sm outline-main-purple"
+            className="w-full border dark:bg-dark-grey border-lines-light dark:border-lines-dark text-black dark:text-white rounded-[4px] py-2 px-2 text-sm outline-main-purple"
             onChange={(e) => {
               const input = e.target as HTMLSelectElement;
               setStatus(input.value);
