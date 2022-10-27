@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { Column, Task } from '../../context/boardContext';
+import { useContext, useState } from 'react';
+import { BoardContext, Column, Task } from '../../context/boardContext';
 import ViewTask from '../modals/ViewTask';
+import EditTask from '../modals/EditTask';
 
 type Props = {
   column: Column;
@@ -10,6 +11,9 @@ type Props = {
 
 const Card = ({ column, task, i }: Props) => {
   const [viewTask, setViewTask] = useState(false);
+  const [editTask, setEditTask] = useState(false);
+  const [state] = useContext(BoardContext);
+  const { activeBoard } = state;
 
   const getNumCompleted = (): number => {
     let count: number = 0;
@@ -29,6 +33,14 @@ const Card = ({ column, task, i }: Props) => {
     setViewTask(false);
   };
 
+  const openEdit = () => {
+    setEditTask(true);
+  };
+
+  const closeEdit = () => {
+    setEditTask(false);
+  };
+
   return (
     <>
       <div
@@ -46,7 +58,23 @@ const Card = ({ column, task, i }: Props) => {
       </div>
 
       {viewTask ? (
-        <ViewTask onClick={handleClose} column={column} task={task} i={i} />
+        <ViewTask
+          onClick={handleClose}
+          closeEdit={closeEdit}
+          openEdit={openEdit}
+          column={column}
+          task={task}
+          i={i}
+        />
+      ) : null}
+      {editTask ? (
+        <EditTask
+          board={activeBoard}
+          column={column}
+          task={task}
+          i={i}
+          onClick={closeEdit}
+        />
       ) : null}
     </>
   );

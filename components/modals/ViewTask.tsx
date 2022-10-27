@@ -6,15 +6,18 @@ import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import Checkbox from '../Checkbox';
 import Label from '../Label';
+import EditTask from './EditTask';
 
 type Props = {
   column: Column;
   task: Task;
   i: number;
   onClick: () => void;
+  closeEdit: () => void;
+  openEdit: () => void;
 };
 
-const ViewTask = ({ column, task, i, onClick }: Props) => {
+const ViewTask = ({ column, task, i, onClick, openEdit, closeEdit }: Props) => {
   const getNumCompleted = (): number => {
     let count: number = 0;
 
@@ -58,11 +61,17 @@ const ViewTask = ({ column, task, i, onClick }: Props) => {
     const newNum = activeBoard.columns.findIndex(
       (item) => item.name === newStatus
     );
+    task.status = newStatus;
     activeBoard.columns[newNum].tasks.push(task);
     dispatch({
       type: 'UPDATE BOARD',
       payload: activeBoard,
     });
+    onClick();
+  };
+
+  const handleClick = () => {
+    openEdit();
     onClick();
   };
 
@@ -73,7 +82,7 @@ const ViewTask = ({ column, task, i, onClick }: Props) => {
           <h2 className="text-lg font-bold text-black dark:text-white flex-1">
             {task.title}
           </h2>
-          <span>
+          <span className="cursor-pointer" onClick={handleClick}>
             <Image src={ellipsis} />
           </span>
         </div>
