@@ -27,6 +27,12 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         activeBoard: action.payload,
       };
+    case 'DELETE BOARD':
+      return {
+        ...state,
+        boards: action.payload.boards,
+        activeBoard: action.payload.activeBoard,
+      };
   }
   return { ...state, boards: state.boards };
 };

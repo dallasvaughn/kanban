@@ -13,11 +13,13 @@ import useWindowDimensions from '../helpers/useWindowDimensions';
 import { Board, BoardContext } from '../context/boardContext';
 import EditBoard from './modals/EditBoard';
 import AddTask from './modals/AddTask';
+import DeleteBoard from './modals/DeleteBoard';
 
 const Header = () => {
   const [openBoardMenu, setOpenBoardMenu] = useState(false);
   const [state] = useContext(BoardContext);
   const [editBoard, setEditBoard] = useState(false);
+  const [deleteBoard, setDeleteBoard] = useState(false);
   const [addTask, setAddTask] = useState(false);
   const { activeBoard } = state;
   const { width } = useWindowDimensions();
@@ -26,11 +28,18 @@ const Header = () => {
     closed: { rotate: 0 },
   };
 
-  console.log(state);
-
   const handleClose = () => {
     setEditBoard(false);
     setAddTask(false);
+  };
+
+  const openDelete = () => {
+    setDeleteBoard(true);
+    setEditBoard(false);
+  };
+
+  const closeDelete = () => {
+    setDeleteBoard(false);
   };
 
   return (
@@ -84,15 +93,24 @@ const Header = () => {
             </PrimaryButton>
           </div>
         )}
-        <Image src={edit} onClick={() => setEditBoard(true)} />
+        <span className="flex items-center justify-center cursor-pointer w-3">
+          <Image src={edit} onClick={() => setEditBoard(true)} />
+        </span>
         {openBoardMenu ? <MobileBoardMenu /> : null}
       </header>
 
       {editBoard && activeBoard ? (
-        <EditBoard board={activeBoard} onClick={handleClose} />
+        <EditBoard
+          board={activeBoard}
+          openDelete={openDelete}
+          onClick={handleClose}
+        />
       ) : null}
       {addTask && activeBoard ? (
         <AddTask board={activeBoard} onClick={handleClose} />
+      ) : null}
+      {deleteBoard ? (
+        <DeleteBoard onClick={closeDelete} name={activeBoard.name} />
       ) : null}
     </>
   );

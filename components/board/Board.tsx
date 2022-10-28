@@ -1,5 +1,6 @@
 import { ReactNode, useContext, useState } from 'react';
 import { BoardContext } from '../../context/boardContext';
+import DeleteBoard from '../modals/DeleteBoard';
 import EditBoard from '../modals/EditBoard';
 
 interface Props {
@@ -8,11 +9,20 @@ interface Props {
 
 const Board = ({ children }: Props) => {
   const [editBoard, setEditBoard] = useState(false);
+  const [deleteBoard, setDeleteBoard] = useState(false);
   const [state] = useContext(BoardContext);
   const { activeBoard } = state;
 
   const handleClose = () => {
     setEditBoard(false);
+  };
+
+  const openDelete = () => {
+    setDeleteBoard(true);
+  };
+
+  const closeDelete = () => {
+    setDeleteBoard(false);
   };
 
   return (
@@ -30,7 +40,14 @@ const Board = ({ children }: Props) => {
       </div>
 
       {editBoard && activeBoard ? (
-        <EditBoard board={activeBoard} onClick={handleClose} />
+        <EditBoard
+          board={activeBoard}
+          openDelete={openDelete}
+          onClick={handleClose}
+        />
+      ) : null}
+      {deleteBoard ? (
+        <DeleteBoard onClick={closeDelete} name={activeBoard.name} />
       ) : null}
     </>
   );

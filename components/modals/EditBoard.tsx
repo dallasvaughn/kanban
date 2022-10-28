@@ -13,9 +13,10 @@ import { Board, BoardContext, Column } from '../../context/boardContext';
 type Props = {
   board: Board;
   onClick: () => void;
+  openDelete: () => void;
 };
 
-const EditBoard = ({ board, onClick }: Props) => {
+const EditBoard = ({ board, onClick, openDelete }: Props) => {
   const [boardName, setBoardName] = useState(board.name);
   const [columns, setColumns] = useState<Column[]>(board.columns);
   const [error, setError] = useState(false);
@@ -58,9 +59,17 @@ const EditBoard = ({ board, onClick }: Props) => {
   return (
     <Modal onClick={onClick}>
       <ModalContent>
-        <h2 className="text-lg font-bold text-black dark:text-white mb-6">
-          Edit Board
-        </h2>
+        <div className="mb-6 flex items-center">
+          <h2 className="text-lg font-bold text-black dark:text-white flex-1">
+            Edit Board
+          </h2>
+          <span
+            className="text-xs text-red cursor-pointer"
+            onClick={openDelete}
+          >
+            Delete
+          </span>
+        </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="board-name">Board Name</Label>
           <Input

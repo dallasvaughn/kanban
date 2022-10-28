@@ -18,7 +18,7 @@ const PrimaryButton = ({
       style={{
         opacity: opacity,
       }}
-      className="px-4 h-11 w-full text-white text-sm bg-main-purple font-semibold rounded-full flex justify-center items-center md:h-12 md:rounded-full md:px-6"
+      className="px-4 h-11 w-full text-white text-sm bg-main-purple hover:bg-main-purple-hover font-semibold rounded-full flex justify-center items-center md:h-12 md:rounded-full md:px-6"
       onClick={onClick}
       disabled={disabled}
     >

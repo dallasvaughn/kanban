@@ -140,7 +140,11 @@ const EditTask = ({ board, column, task, i, onClick }: Props) => {
             }}
           >
             {activeBoard.columns.map((column, i) => {
-              return <option value={column.name}>{column.name}</option>;
+              return (
+                <option key={i} value={column.name}>
+                  {column.name}
+                </option>
+              );
             })}
           </select>
         </div>
