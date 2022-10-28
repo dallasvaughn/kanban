@@ -90,7 +90,7 @@ const Sidebar = ({ updateSidebar }: Props) => {
           </span>
         </div>
         <div
-          className="flex items-center text-medium-grey font-bold text-md mt-[30px] ml-4"
+          className="flex items-center text-medium-grey font-bold text-md mt-[30px] ml-4 cursor-pointer"
           onClick={updateSidebar}
         >
           <span className="flex items-center mr-[10px]">
