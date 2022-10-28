@@ -8,7 +8,7 @@ interface Props {
 const Modal = ({ children, onClick }: Props) => {
   return (
     <div
-      className="fixed z-50 top-0 left-0 w-screen h-screen bg-black/50 flex justify-center items-center"
+      className="fixed z-50 top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center"
       onClick={onClick}
     >
       {children}
