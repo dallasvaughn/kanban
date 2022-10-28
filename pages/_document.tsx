@@ -8,11 +8,12 @@ class MyDocument extends Document {
           <meta charSet="UTF-8" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link rel="shortcut icon" href="/favicon-32x32.png" />
+          <link rel="shortcut icon" href="/favicon.svg" />
           <link
             href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap"
             rel="stylesheet"
           />
+          <title>Kanban</title>
         </Head>
         <body className="flex flex-col mx-auto justify-between min-h-screen bg-light-grey dark:bg-very-dark-grey">
           <Main />
