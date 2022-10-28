@@ -55,7 +55,7 @@ const Card = ({ column, task, i }: Props) => {
   return (
     <>
       <div
-        className="w-[280px] shadow-normal rounded-lg bg-white dark:bg-dark-grey text-xs px-4 py-6"
+        className="w-[280px] shadow-normal rounded-lg bg-white dark:bg-dark-grey text-xs px-4 py-6 cursor-pointer"
         onClick={() => setViewTask(true)}
       >
         <h3 className="text-black dark:text-white text-md font-bold mb-2 leading-[18.9px]">

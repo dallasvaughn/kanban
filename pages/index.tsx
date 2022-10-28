@@ -47,7 +47,7 @@ const Home: NextPage = () => {
         {activeBoard && activeBoard.columns.length > 0 ? (
           <Board>
             {activeBoard.columns.map((column, i) => {
-              return <Column key={i} column={column} />;
+              return <Column key={i} column={column} i={i} />;
             })}
           </Board>
         ) : (

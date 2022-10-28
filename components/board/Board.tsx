@@ -32,7 +32,7 @@ const Board = ({ children }: Props) => {
         {children}
         <div className="rounded-lg pr-4 pb-6 mt-[42px]">
           <div
-            className="text-medium-grey bg-[#E9EFFA] dark:bg-[#2B2C37]/25 text-lg md:text-xl font-bold w-[280px] h-full rounded-lg flex justify-center items-center"
+            className="text-medium-grey bg-[#E9EFFA] dark:bg-[#2B2C37]/25 text-lg md:text-xl font-bold w-[280px] h-full rounded-lg flex justify-center items-center cursor-pointer"
             onClick={() => setEditBoard(true)}
           >
             + New Column

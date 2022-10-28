@@ -20,7 +20,7 @@ const EditBoard = ({ board, onClick, openDelete }: Props) => {
   const [boardName, setBoardName] = useState(board.name);
   const [columns, setColumns] = useState<Column[]>(board.columns);
   const [error, setError] = useState(false);
-  const [, dispatch] = useContext(BoardContext);
+  const [state, dispatch] = useContext(BoardContext);
 
   useEffect(() => {
     setError(false);
@@ -63,12 +63,14 @@ const EditBoard = ({ board, onClick, openDelete }: Props) => {
           <h2 className="text-lg font-bold text-black dark:text-white flex-1">
             Edit Board
           </h2>
-          <span
-            className="text-xs text-red cursor-pointer"
-            onClick={openDelete}
-          >
-            Delete
-          </span>
+          {state.boards.length === 1 ? null : (
+            <span
+              className="text-xs text-red cursor-pointer"
+              onClick={openDelete}
+            >
+              Delete
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="board-name">Board Name</Label>

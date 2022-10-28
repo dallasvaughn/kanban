@@ -23,7 +23,7 @@ const BoardName = ({ board }: Props) => {
         backgroundColor:
           board && board.name === activeBoard.name ? '#635FC7' : undefined,
       }}
-      className="rounded-r-full p-3 md:p-4 pl-0"
+      className="rounded-r-full p-3 md:p-4 pl-0 cursor-pointer"
       onClick={handleClick}
     >
       <div
