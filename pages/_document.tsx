@@ -13,7 +13,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap"
             rel="stylesheet"
           />
-          <title>Kanban</title>
         </Head>
         <body className="flex flex-col mx-auto justify-between min-h-screen bg-light-grey dark:bg-very-dark-grey">
           <Main />

@@ -9,6 +9,7 @@ import Board from '../components/board/Board';
 import Column from '../components/board/Column';
 import AddBoard from '../components/modals/AddBoard';
 import { BoardContext } from '../context/boardContext';
+import Head from 'next/head';
 
 const Home: NextPage = () => {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -35,27 +36,32 @@ const Home: NextPage = () => {
   };
 
   return (
-    <main className="mt-16 md:mt-20 flex flex-1 relative">
-      <div className="hidden md:block absolute h-full">
-        <Sidebar updateSidebar={updateSidebar} />
-      </div>
-      <motion.div
-        initial={{ width: '100%' }}
-        animate={{ width: !showSidebar ? '100%' : 'calc(100% - 260px)' }}
-        className="absolute right-0 h-full bg-light-grey dark:bg-very-dark-grey flex-1 flex"
-      >
-        {activeBoard && activeBoard.columns.length > 0 ? (
-          <Board>
-            {activeBoard.columns.map((column, i) => {
-              return <Column key={i} column={column} i={i} />;
-            })}
-          </Board>
-        ) : (
-          <EmptyBoard />
-        )}
-      </motion.div>
-      {!showSidebar && <ShowSidebar updateSidebar={updateSidebar} />}
-    </main>
+    <>
+      <Head>
+        <title>Kanban</title>
+      </Head>
+      <main className="mt-16 md:mt-20 flex flex-1 relative">
+        <div className="hidden md:block absolute h-full">
+          <Sidebar updateSidebar={updateSidebar} />
+        </div>
+        <motion.div
+          initial={{ width: '100%' }}
+          animate={{ width: !showSidebar ? '100%' : 'calc(100% - 260px)' }}
+          className="absolute right-0 h-full bg-light-grey dark:bg-very-dark-grey flex-1 flex"
+        >
+          {activeBoard && activeBoard.columns.length > 0 ? (
+            <Board>
+              {activeBoard.columns.map((column, i) => {
+                return <Column key={i} column={column} i={i} />;
+              })}
+            </Board>
+          ) : (
+            <EmptyBoard />
+          )}
+        </motion.div>
+        {!showSidebar && <ShowSidebar updateSidebar={updateSidebar} />}
+      </main>
+    </>
   );
 };
 
