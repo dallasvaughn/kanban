@@ -1,15 +1,26 @@
 import { useContext, useState } from 'react';
 import { BoardContext, Board } from '../../context/boardContext';
+import DeleteBoard from '../modals/DeleteBoard';
 import EditBoard from '../modals/EditBoard';
 import PrimaryButton from '../PrimaryButton';
 
 const EmptyBoard = () => {
   const [editBoard, setEditBoard] = useState(false);
   const [state] = useContext(BoardContext);
+  const [deleteBoard, setDeleteBoard] = useState(false);
   const { boards, activeBoard } = state;
 
   const handleClose = () => {
     setEditBoard(false);
+  };
+
+  const openDelete = () => {
+    setDeleteBoard(true);
+    setEditBoard(false);
+  };
+
+  const closeDelete = () => {
+    setDeleteBoard(false);
   };
 
   return (
@@ -26,7 +37,14 @@ const EmptyBoard = () => {
       </div>
 
       {editBoard && activeBoard ? (
-        <EditBoard board={activeBoard} onClick={handleClose} />
+        <EditBoard
+          board={activeBoard}
+          onClick={handleClose}
+          openDelete={openDelete}
+        />
+      ) : null}
+      {deleteBoard ? (
+        <DeleteBoard onClick={closeDelete} name={activeBoard.name} />
       ) : null}
     </>
   );
