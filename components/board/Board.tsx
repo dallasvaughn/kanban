@@ -28,7 +28,7 @@ const Board = ({ children }: Props) => {
 
   return (
     <>
-      <div className="pl-4 pt-6 flex gap-6 max-w-full overflow-hidden overflow-x-auto overflow-y-auto">
+      <div className="pl-4 pt-6 flex gap-6 w-full max-w-full overflow-hidden overflow-x-auto overflow-y-auto">
         {children}
         <div className="rounded-lg pr-4 pb-6 mt-[42px]">
           <div
