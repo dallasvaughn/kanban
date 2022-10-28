@@ -1,21 +1,25 @@
-import { useContext } from 'react';
-import { BoardContext } from '../../context/boardContext';
-import SecondaryButton from '../SecondaryButton';
-import Modal from './Modal';
 import ModalContent from './ModalContent';
+import Modal from './Modal';
+import { BoardContext, Column, Task } from '../../context/boardContext';
+import SecondaryButton from '../SecondaryButton';
+import { useContext } from 'react';
 
 type Props = {
   onClick: () => void;
-  name: string;
+  task: Task;
+  column: Column;
 };
 
-const DeleteBoard = ({ onClick, name }: Props) => {
+const DeleteTask = ({ onClick, task, column }: Props) => {
   const [, dispatch] = useContext(BoardContext);
 
   const handleDelete = () => {
     dispatch({
-      type: 'DELETE BOARD',
-      payload: {},
+      type: 'DELETE TASK',
+      payload: {
+        column,
+        task,
+      },
     });
     onClick();
   };
@@ -24,11 +28,11 @@ const DeleteBoard = ({ onClick, name }: Props) => {
     <Modal onClick={onClick}>
       <ModalContent>
         <h2 className="text-lg font-semibold text-red mb-6">
-          Delete this board?
+          Delete this task?
         </h2>
         <p className="text-sm text-medium-grey leading-md mb-6">
-          Are you sure you want to delete the '{name}' board? This action will
-          remove all columns and tasks and cannot be reversed.
+          Are you sure you want to delete the '{task.title}' task and its
+          subtasks? This action cannot be reversed.
         </p>
         <div className="flex flex-col gap-4 md:flex-row">
           <button
@@ -44,4 +48,4 @@ const DeleteBoard = ({ onClick, name }: Props) => {
   );
 };
 
-export default DeleteBoard;
+export default DeleteTask;

@@ -16,9 +16,10 @@ type Props = {
   task: Task;
   i: number;
   onClick: () => void;
+  openDelete: () => void;
 };
 
-const EditTask = ({ board, column, task, i, onClick }: Props) => {
+const EditTask = ({ board, column, task, i, onClick, openDelete }: Props) => {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
   const [subtasks, setSubtasks] = useState(task.subtasks);
@@ -46,35 +47,17 @@ const EditTask = ({ board, column, task, i, onClick }: Props) => {
   };
 
   const saveTask = () => {
-    const index = state.activeBoard.columns.findIndex(
-      (column) => column.name === status
-    );
-    const cleanSubtasks = subtasks.filter(
-      (subtask) => subtask.title !== '' && subtask.title !== undefined
-    );
-    if (status !== task.status) {
-      const colNum = activeBoard.columns.findIndex(
-        (item) => item.name === column.name
-      );
-      activeBoard.columns[colNum].tasks = activeBoard.columns[
-        colNum
-      ].tasks.filter((item) => item.title !== task.title);
-      const newNum = activeBoard.columns.findIndex(
-        (item) => item.name === status
-      );
-      activeBoard.columns[newNum].tasks.push(task);
-    } else {
-      activeBoard.columns[index].tasks[i] = {
+    dispatch({
+      type: 'SAVE TASK',
+      payload: {
+        subtasks,
+        column,
+        task,
+        i,
         title,
         description,
-        subtasks: cleanSubtasks,
         status,
-      };
-    }
-
-    dispatch({
-      type: 'UPDATE BOARD',
-      payload: activeBoard,
+      },
     });
     onClick();
   };
@@ -82,9 +65,17 @@ const EditTask = ({ board, column, task, i, onClick }: Props) => {
   return (
     <Modal onClick={onClick}>
       <ModalContent>
-        <h2 className="text-lg font-bold text-black dark:text-white mb-6">
-          Edit Task
-        </h2>
+        <div className="mb-6 flex items-center">
+          <h2 className="text-lg font-bold text-black dark:text-white flex-1">
+            Edit Task
+          </h2>
+          <span
+            className="text-xs text-red cursor-pointer"
+            onClick={openDelete}
+          >
+            Delete
+          </span>
+        </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="title">Title</Label>
           <Input

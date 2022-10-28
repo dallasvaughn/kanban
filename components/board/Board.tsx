@@ -19,6 +19,7 @@ const Board = ({ children }: Props) => {
 
   const openDelete = () => {
     setDeleteBoard(true);
+    setEditBoard(false);
   };
 
   const closeDelete = () => {

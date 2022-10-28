@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { BoardContext, Column, Task } from '../../context/boardContext';
 import ViewTask from '../modals/ViewTask';
 import EditTask from '../modals/EditTask';
+import DeleteTask from '../modals/DeleteTask';
 
 type Props = {
   column: Column;
@@ -12,6 +13,7 @@ type Props = {
 const Card = ({ column, task, i }: Props) => {
   const [viewTask, setViewTask] = useState(false);
   const [editTask, setEditTask] = useState(false);
+  const [deleteTask, setDeleteTask] = useState(false);
   const [state] = useContext(BoardContext);
   const { activeBoard } = state;
 
@@ -39,6 +41,15 @@ const Card = ({ column, task, i }: Props) => {
 
   const closeEdit = () => {
     setEditTask(false);
+  };
+
+  const openDelete = () => {
+    setDeleteTask(true);
+    setEditTask(false);
+  };
+
+  const closeDelete = () => {
+    setDeleteTask(false);
   };
 
   return (
@@ -74,7 +85,11 @@ const Card = ({ column, task, i }: Props) => {
           task={task}
           i={i}
           onClick={closeEdit}
+          openDelete={openDelete}
         />
+      ) : null}
+      {deleteTask ? (
+        <DeleteTask onClick={closeDelete} task={task} column={column} />
       ) : null}
     </>
   );

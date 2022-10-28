@@ -52,20 +52,13 @@ const ViewTask = ({ column, task, i, onClick, openEdit, closeEdit }: Props) => {
   };
 
   const updateStatus = (newStatus: string) => {
-    const colNum = activeBoard.columns.findIndex(
-      (item) => item.name === column.name
-    );
-    activeBoard.columns[colNum].tasks = activeBoard.columns[
-      colNum
-    ].tasks.filter((item) => item.title !== task.title);
-    const newNum = activeBoard.columns.findIndex(
-      (item) => item.name === newStatus
-    );
-    task.status = newStatus;
-    activeBoard.columns[newNum].tasks.push(task);
     dispatch({
-      type: 'UPDATE BOARD',
-      payload: activeBoard,
+      type: 'UPDATE TASK',
+      payload: {
+        column,
+        task,
+        newStatus,
+      },
     });
     onClick();
   };
